@@ -51,9 +51,7 @@ const findNearbyPlaces = ({
   callbackFunction: (results: any, status: any) => void;
   placeRef: any;
 }) => {
-  console.log("1");
   const googleLocation = new google.maps.LatLng(lat, long);
-  console.log("2");
 
   const request = {
     location: googleLocation,
