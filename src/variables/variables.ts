@@ -1,8 +1,6 @@
 const mainColors = {
-    green: "#00ffe0",
-    white: "#fff"
-}
+  green: "#00ffe0",
+  white: "#fff",
+};
 
-export {
-    mainColors
-}
+export { mainColors };

@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { GoogleNearbyComponent } from './components';
+import { GoogleNearbyComponent } from './Pages';
 
 function App() {
 
