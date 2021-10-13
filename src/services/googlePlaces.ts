@@ -25,6 +25,7 @@ const useGooglePlaces = () => {
     loader
       .load()
       .then((google) => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         placeRef = new google.maps.Map(placeRef.current as any, placeOptions);
         setPlacesState((prevState) => {
           return { ...prevState, placeRef: placeRef, loading: false };
@@ -33,7 +34,7 @@ const useGooglePlaces = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [placeRef]);
 
   return { placesState };
 };
@@ -48,7 +49,11 @@ const findNearbyPlaces = ({
   lat: number;
   long: number;
   keyword?: string;
-  callbackFunction: (results: any, status: any) => void;
+  //unfortunately
+  callbackFunction: (
+    results: google.maps.places.PlaceResult[] | null,
+    status: google.maps.places.PlacesServiceStatus
+  ) => void;
   placeRef: any;
 }) => {
   const googleLocation = new google.maps.LatLng(lat, long);

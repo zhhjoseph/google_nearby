@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { RadioInput, Spinner, StyledText, TextInput } from "../components/ui";
 import { findNearbyPlaces, useGooglePlaces } from "../services";
 import { locations } from "../data/locations";
-import { Formik, FormikProps, Form, Field } from "formik";
+import { Formik, Form, Field } from "formik";
 import { Button } from "../components/ui/Button";
 
 interface FormValues {
@@ -21,36 +21,26 @@ interface LOCATION {
 const GoogleNearbyComponent = () => {
   const { placesState } = useGooglePlaces();
 
-  const [state, setState] = useState([]);
+  const [state, setState] = useState<google.maps.places.PlaceResult[] | null>(
+    []
+  );
 
   const locationData = locations as LOCATION;
-
-  useEffect(() => {
-    // if(placesState.loading === false){
-    //   findNearbyPlaces(
-    //     {lat: 39.2130,
-    //       long: -106.9378,
-    //       placeRef: placesState.placeRef,
-    //       callbackFunction: hello
-    //     }
-    //   )
-    // }
-  }, []);
 
   const initialValues: FormValues = {
     keyword: "",
     selectedLocation: "Snowmass, CO",
   };
-  const setNearbyPlaces = (results: any, status: any) => {
-    console.log("results", results);
+  const setNearbyPlaces = (
+    results: google.maps.places.PlaceResult[] | null,
+    status: google.maps.places.PlacesServiceStatus
+  ) => {
     setState(results);
   };
 
-  // if (placesState.loading) {
-  //   return <Spinner color={"green"} />;
-  // }
-
-  console.log("state", state);
+  if (placesState.loading) {
+    return <Spinner color={"green"} />;
+  }
 
   return (
     <Container>
@@ -66,37 +56,33 @@ const GoogleNearbyComponent = () => {
           });
         }}
       >
-        {(props: FormikProps<any>) => {
-          return (
-            <Form>
-              <FormContainer>
-                <SelectionContainer>
-                  <StyledText>Select</StyledText>
-                  <SelectionList>
-                    {Object.keys(locations).map((location) => {
-                      return (
-                        <SelectionListContainer key={location}>
-                          <Field
-                            name={"selectedLocation"}
-                            value={location}
-                            type={"radio"}
-                            component={RadioInput}
-                          />
-                          <StyledText>{location}</StyledText>
-                        </SelectionListContainer>
-                      );
-                    })}
-                  </SelectionList>
-                </SelectionContainer>
-                <SearchContainer>
-                  <StyledText>Search</StyledText>
-                  <Field name={"keyword"} type={"text"} component={TextInput} />
-                  <Button type="submit">Search</Button>
-                </SearchContainer>
-              </FormContainer>
-            </Form>
-          );
-        }}
+        <Form>
+          <FormContainer>
+            <SelectionContainer>
+              <StyledText>Select</StyledText>
+              <SelectionList>
+                {Object.keys(locations).map((location) => {
+                  return (
+                    <SelectionListContainer key={location}>
+                      <Field
+                        name={"selectedLocation"}
+                        value={location}
+                        type={"radio"}
+                        component={RadioInput}
+                      />
+                      <StyledText>{location}</StyledText>
+                    </SelectionListContainer>
+                  );
+                })}
+              </SelectionList>
+            </SelectionContainer>
+            <SearchContainer>
+              <StyledText>Search</StyledText>
+              <Field name={"keyword"} type={"text"} component={TextInput} />
+              <Button type="submit">Search</Button>
+            </SearchContainer>
+          </FormContainer>
+        </Form>
       </Formik>
       <NearbyPlacesContainer>Nearby Places list</NearbyPlacesContainer>
     </Container>

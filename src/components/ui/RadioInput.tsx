@@ -1,4 +1,3 @@
-import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { FieldProps } from "formik";
 
