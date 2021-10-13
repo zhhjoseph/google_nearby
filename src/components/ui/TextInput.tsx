@@ -1,15 +1,12 @@
 import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
-import { FieldProps } from "formik";
+import { FieldProps, FormikProps } from "formik";
 
 interface TextInputProps
-  extends InputHTMLAttributes<HTMLInputElement & FieldProps> {
-  name: string;
-  label: string;
-}
+  extends InputHTMLAttributes<HTMLInputElement & FieldProps> {}
 
 const TextInput = (props: TextInputProps & FieldProps) => {
-  return <StyledTextInput {...props} {...props.field} />;
+  return <StyledTextInput type={"text"} {...props} {...props.field} />;
 };
 
 const StyledTextInput = styled.input`
