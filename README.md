@@ -1,4 +1,4 @@
-# Autocomplete
+# Google nearby
 
 This project is created via create-react-app and is deployed at https://google-nearby.netlify.app/
 
