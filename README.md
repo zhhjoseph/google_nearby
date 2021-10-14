@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Autocomplete
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is created via create-react-app and is deployed at https://google-nearby.netlify.app/
 
-## Available Scripts
+## Starting the app
 
-In the project directory, you can run:
+Create .env file and insert below
 
-### `yarn start`
+```
+REACT_APP_GOOGLE_KEY={API KEY HERE}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In the project directory, you can run the following to start locally:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`yarn start`
 
-### `yarn test`
+## Notes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#####
 
-### `yarn build`
+In regards to CSS decision of using CSS-in-JS pattern with styled-components.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Great developer experience - Tracking your components and styles is simple as they live in the same file as your components.
+- Can apply complex javascript logic instead of trying to deal with classNames.
+- Have mostly just worked with styled-components professionally and do not have time to ramp up to use best practices with other methodologies.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#####
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In regards to the google api, best practices seemed to be using their js-api-loader https://cloud.google.com/blog/products/maps-platform/loading-google-maps-platform-javascript-modern-web-applications.
 
-### `yarn eject`
+This took the most time besides setting up the initial boilerplate as it was a new api I haven't used before and wanted to make sure I was using the correct way to consume the api.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#####
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Considerations
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+File Structure -
+First thing to consider is seperating concerns and business logic of use case for any files. Before going into the reasoning on structure, as these are always subjective, I believe there is a need to not deeply nest components in the file structure. With components there are larger components seperated into dumb/smart components while smaller components that are commonly used through the app would be placed in ui. There are some folders that are not used that I used when creating the boiler plate such as utils. Depending on the whole scale of the project, the file structure can be very different component wise. Some apps can have as little as 2 routes while some have hundreds and the latter would be a situation where we can move routes into a seperate file structure for better dev experience and readability but in this case I thought it was overkill.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Formik:
+Besides being comfortable with it, I used it instead of regular react forms initially in case there was a case of getting values in and out of the form state. It's also simple enough to place a Field input component and have a cleaner form component. Also even though there is no use case in this exercise, formik pairs very well with a versatile library named yup for any type of form validation and it is used in many different industries.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+styled-components:
+I am familiar with styling with this library and the reasoning behind picking styled components is the styles live with the components that you are using and it makes sense in terms of modular code.
