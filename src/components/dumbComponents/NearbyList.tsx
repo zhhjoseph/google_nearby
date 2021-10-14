@@ -1,25 +1,29 @@
 import styled from "styled-components";
-import { ListContainer } from "../ui";
+import { ListContainer, Spinner } from "../ui";
 
 interface NearbyListProps {
   places: google.maps.places.PlaceResult[];
-  placeRef: any;
+  loading: boolean;
 }
-const NearbyList = ({ places, placeRef }: NearbyListProps) => {
+const NearbyList = ({ places, loading }: NearbyListProps) => {
   return (
     <NearbyPlacesContainer>
-      <StyledList>
-        {places.map((results) => {
-          return (
-            <ListContainer
-              address={results.vicinity}
-              rating={results.rating}
-              name={results.name}
-              key={results.place_id}
-            />
-          );
-        })}
-      </StyledList>
+      {!loading ? (
+        <StyledList>
+          {places.map((results) => {
+            return (
+              <ListContainer
+                address={results.vicinity}
+                rating={results.rating}
+                name={results.name}
+                key={results.place_id}
+              />
+            );
+          })}
+        </StyledList>
+      ) : (
+        <Spinner color={"green"} />
+      )}
     </NearbyPlacesContainer>
   );
 };

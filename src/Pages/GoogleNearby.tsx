@@ -6,21 +6,36 @@ import { useGooglePlaces } from "../services";
 import { NearbyList } from "../components/dumbComponents";
 import { NearbySearchForm } from "../components/smartComponents";
 
+interface GoogleNearbyComponentState {
+  results: google.maps.places.PlaceResult[];
+  loading: boolean;
+}
+
 const GoogleNearbyComponent = () => {
   const { placesState } = useGooglePlaces();
 
-  const [state, setState] = useState<google.maps.places.PlaceResult[]>([]);
+  const [state, setState] = useState<GoogleNearbyComponentState>({
+    results: [],
+    loading: false,
+  });
 
   const setNearbyPlaces = (
     results: google.maps.places.PlaceResult[] | null,
     status: google.maps.places.PlacesServiceStatus
   ) => {
+    setState({
+      results: [],
+      loading: true,
+    });
     if (status !== google.maps.places.PlacesServiceStatus.OK || !results) {
-      setState([]);
+      setState({
+        results: [],
+        loading: false,
+      });
       return;
     }
 
-    setState(results);
+    setState({ results, loading: false });
   };
 
   if (placesState.loading) {
@@ -33,7 +48,7 @@ const GoogleNearbyComponent = () => {
         placeRef={placesState.placeRef}
         callbackFunction={setNearbyPlaces}
       />
-      <NearbyList places={state} placeRef={placesState.placeRef} />
+      <NearbyList places={state.results} loading={state.loading} />
     </Container>
   );
 };
