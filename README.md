@@ -4,7 +4,7 @@ This project is created via create-react-app and is deployed at https://google-n
 
 ## Starting the app
 
-Create .env file and insert below
+Create .env file in root and insert below
 
 ```
 REACT_APP_GOOGLE_KEY={API KEY HERE}
