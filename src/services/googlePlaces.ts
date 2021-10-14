@@ -49,7 +49,6 @@ const findNearbyPlaces = ({
   lat: number;
   long: number;
   keyword?: string;
-  //unfortunately
   callbackFunction: (
     results: google.maps.places.PlaceResult[] | null,
     status: google.maps.places.PlacesServiceStatus
@@ -70,6 +69,7 @@ const findNearbyPlaces = ({
   service.nearbySearch(request, callbackFunction);
 };
 
+//Below for finding more specific details for a certain place.
 const findPlace = ({
   placeId,
   placeRef,
@@ -77,7 +77,10 @@ const findPlace = ({
 }: {
   placeId: string;
   placeRef: any;
-  callbackFunction: (results: any, status: any) => void;
+  callbackFunction: (
+    result: google.maps.places.PlaceResult | null,
+    status: google.maps.places.PlacesServiceStatus
+  ) => void;
 }) => {
   const request = {
     placeId,

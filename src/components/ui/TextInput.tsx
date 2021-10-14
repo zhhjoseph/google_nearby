@@ -16,10 +16,10 @@ const TextInput = ({
 const StyledTextInput = styled.input`
   font-size: 16px;
   line-height: 28px;
-  padding: 8px 16px;
   width: 100%;
   min-height: 44px;
   border-radius: 4px;
+  padding: 0;
   outline-color: #0c4261;
 `;
 

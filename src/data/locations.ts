@@ -9,11 +9,11 @@ const locations = {
   },
   "Catskill, NY": {
     latitude: 42.2146,
-    longitude: -110.6818,
+    longitude: -73.9595,
   },
   "Grand Teton National Park, WY": {
     latitude: 43.7904,
-    longitude: -106.9378,
+    longitude: -110.6818,
   },
   "Columbia River Gorge, OR": {
     latitude: 45.7253,
