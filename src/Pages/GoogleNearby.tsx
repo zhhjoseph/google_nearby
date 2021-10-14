@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Spinner } from "../components/ui";
-import { findNearbyPlaces, useGooglePlaces } from "../services";
+import { useGooglePlaces } from "../services";
+
+import { NearbyList } from "../components/dumbComponents";
+import { NearbySearchForm } from "../components/smartComponents";
 
 const GoogleNearbyComponent = () => {
   const { placesState } = useGooglePlaces();
 
-  useEffect(() => {
-    // if(placesState.loading === false){
-    //   findNearbyPlaces(
-    //     {lat: 39.2130,
-    //       long: -106.9378,
-    //       placeRef: placesState.placeRef,
-    //       callbackFunction: hello
-    //     }
-    //   )
-    // }
-  }, []);
+  const [state, setState] = useState<google.maps.places.PlaceResult[]>([]);
 
-  const hello = (results: any, status: any) => {
-    console.log("results", results);
+  const setNearbyPlaces = (
+    results: google.maps.places.PlaceResult[] | null,
+    status: google.maps.places.PlacesServiceStatus
+  ) => {
+    if (status !== google.maps.places.PlacesServiceStatus.OK || !results) {
+      setState([]);
+      return;
+    }
+
+    setState(results);
   };
+
   if (placesState.loading) {
     return <Spinner color={"green"} />;
   }
+
   return (
     <Container>
-      <SelectionContainer>Selection Container</SelectionContainer>
-      <NearbyPlacesContainer>Nearby Places list</NearbyPlacesContainer>
+      <NearbySearchForm
+        placeRef={placesState.placeRef}
+        callbackFunction={setNearbyPlaces}
+      />
+      <NearbyList places={state} placeRef={placesState.placeRef} />
     </Container>
   );
 };
@@ -36,19 +42,8 @@ export { GoogleNearbyComponent };
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-`;
-
-const SelectionContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const NearbyPlacesContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 50px;
 `;
