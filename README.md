@@ -30,6 +30,8 @@ In regards to the google api, best practices seemed to be using their js-api-loa
 
 This took the most time besides setting up the initial boilerplate as it was a new api I haven't used before and wanted to make sure I was using the correct way to consume the api.
 
+Only real issue I had not solved is the type def for the refs as it won't accept both HTMLDivElement | google.maps.Map types and unfortunately had to type cast the ref as any in this case.
+
 #####
 
 ## Considerations
